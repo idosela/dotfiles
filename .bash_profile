@@ -1,7 +1,7 @@
 # Load ~/.extra, ~/.bash_prompt, ~/.exports, ~/.aliases, and ~/.functions
 # ~/.extra can be used for settings you don’t want to commit
-for file in ~/.{extra,bash_prompt,exports,aliases,functions}; do
-	[ -r "$file" ] && source "$file"
+for file in ~/.{noshare,bash_aliases,bash_prompt,exports,functions}; do
+  [ -r "$file" ] && source "$file"
 done
 unset file
 
@@ -18,7 +18,7 @@ shopt -s cdspell
 # * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
 # * Recursive globbing, e.g. `echo **/*.txt`
 for option in autocd globstar; do
-	shopt -s "$option" 2> /dev/null
+  shopt -s "$option" 2> /dev/null
 done
 
 # Prefer US English and use UTF-8
@@ -37,3 +37,5 @@ complete -o "nospace" -W "Finder Dock Mail Safari iTunes iCal Address\ Book Syst
 
 # If possible, add tab completion for many more commands
 [ -f /etc/bash_completion ] && source /etc/bash_completion
+
+
