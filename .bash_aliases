@@ -1,3 +1,13 @@
+alias gst='git status'
+alias gco='git checkout'
+alias gci='git commit -a -m'
+alias gcii='git commit -a -m "local commit"'
+alias gbr='git branch'
+alias grh="git reset --hard"
+alias gl="git log --pretty='format:%Cgreen%h%Creset %an - %s' --graph"
+
+alias filediff='grep -Fxvf'
+
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."
 alias ...="cd ../.."

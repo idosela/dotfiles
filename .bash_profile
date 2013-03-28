@@ -37,5 +37,15 @@ complete -o "nospace" -W "Finder Dock Mail Safari iTunes iCal Address\ Book Syst
 
 # If possible, add tab completion for many more commands
 [ -f /etc/bash_completion ] && source /etc/bash_completion
+[ -f /usr/local/etc/bash_completion ] && source /usr/local/etc/bash_completion
 
+# Add tab complition for the branch names on git command aliases.
+function get_git_branches() {
+  git branch --no-color 2> /dev/null | grep -v "*"
+}
+complete -o "nospace" -W "$(get_git_branches)" gco
+complete -o "nospace" -W "$(get_git_branches)" gbr
 
+# Load https://github.com/karlin/working-directory
+export WDHOME=./wd/.wd
+source ./wd/wd.sh
