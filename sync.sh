@@ -30,7 +30,11 @@ if [[ $syncdir == "t" ]]; then
 
   rsync -av ${files[@]} $HOME/
 else
-  echo "F"
+  for file in ${files[@]}; do
+    file="$HOME/$file"
+    [ -e $file ] && cp -r $file .
+  done
+  unset file
 fi
 
 #     doIt
