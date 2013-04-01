@@ -1,10 +1,13 @@
 #!/bin/bash
+
+# cd into the scripts directory.
 cd "$(dirname "$0")"
 
+# Get a list of the files to be copied.
 exclude_files=(".DS_Store" "README.md" "sync.sh" ".git")
 files=$(grep -vxF -f <(printf "%s\n" ${exclude_files[@]}) <(ls -A))
 
-# Determine the sync direction
+# Determine the sync direction.
 echo
 echo "Please choose the sync direction:"
 select suite in "To homedir" "From homedir";
@@ -17,7 +20,10 @@ do
   break
 done
 
+# Sync the dot files to the home directory.
 if [[ $syncdir == "t" ]]; then
+
+  # Create a backup of any preexisting dot files.
   backupdir="$HOME/dotfiles-backup-$(date +%Y%m%d%H%M%S)"
   mkdir $backupdir
 
@@ -28,7 +34,11 @@ if [[ $syncdir == "t" ]]; then
   done
   unset file
 
+  # Sync and reload.
   rsync -av ${files[@]} $HOME/
+  source $HOME/.bash_profile
+
+# Sync the dot files from the home directory.
 else
   for file in ${files[@]}; do
     file="$HOME/$file"
@@ -36,22 +46,3 @@ else
   done
   unset file
 fi
-
-#     doIt
-#   fi
-#
-# git pull
-# function doIt() {
-# 	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" --exclude "README.md" -av . ~
-# }
-# if [ "$1" == "--force" -o "$1" == "-f" ]; then
-# 	doIt
-# else
-# 	read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1
-# 	echo
-# 	if [[ $REPLY =~ ^[Yy]$ ]]; then
-# 		doIt
-# 	fi
-# fi
-# unset doIt
-# source ~/.bash_profile
